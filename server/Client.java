@@ -20,6 +20,16 @@ public class Client {
 		out = new DataOutputStream(server.getOutputStream());
 	}
 	
+	protected void finalize() {
+		try {
+			in.close();out.close();
+			server.close();
+			instance = null;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public void reconnect() {
 		try {
 			instance = new Client();
